@@ -34,8 +34,9 @@
     "dayjs": "^1.11.0",
     "embla-carousel-react": "^7.0.0",
     "next": "12.2.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "18.2.0",
+    "react-lottie-player": "^1.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",

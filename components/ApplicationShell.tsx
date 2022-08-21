@@ -13,9 +13,13 @@ import {
   Group,
   Button,
   Burger,
+  Center,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronDown } from '@tabler/icons';
+
+import Lottie from 'react-lottie-player';
+import heartJson from '../public/heart.json';
 
 const HEADER_HEIGHT = 60;
 
@@ -57,6 +61,18 @@ const useStyles = createStyles((theme) => ({
   linkLabel: {
     marginRight: 5,
   },
+
+  footerTextRight: {
+    marginLeft: '-9px',
+  },
+
+  footerTextLeft: {
+    marginRight: '-9px',
+  },
+
+  heart: {
+    height: '30px',
+  },
 }));
 
 export default function ApplicationShell(props: any) {
@@ -88,7 +104,17 @@ export default function ApplicationShell(props: any) {
       }
       footer={
         <Footer height={60} p="md">
-          Application footer
+          <Center>
+            <Text className={classes.footerTextLeft}>Made with</Text>
+            <Lottie
+              loop
+              animationData={heartJson}
+              play
+              rendererSettings={{ preserveAspectRatio: 'xMidYMid slice' }}
+              className={classes.heart}
+            />
+            <Text className={classes.footerTextRight}>by Jacob Clark</Text>
+          </Center>
         </Footer>
       }
       header={
@@ -97,9 +123,6 @@ export default function ApplicationShell(props: any) {
             <Group>
               <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
               <IconChevronDown />
-            </Group>
-            <Group spacing={5} className={classes.links}>
-              test
             </Group>
             <Button radius="xl" sx={{ height: 30 }}>
               Order
