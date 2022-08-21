@@ -102,7 +102,7 @@ export default function ApplicationShell(props: any) {
               test
             </Group>
             <Button radius="xl" sx={{ height: 30 }}>
-              Get early access
+              Order
             </Button>
           </Container>
         </Header>
