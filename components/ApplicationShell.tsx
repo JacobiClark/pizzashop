@@ -17,6 +17,8 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { IconPizza } from '@tabler/icons';
 
+import { signIn } from 'next-auth/react';
+
 import Lottie from 'react-lottie-player';
 
 import { ColorSchemeToggle } from './ColorSchemeToggle';
@@ -146,7 +148,7 @@ export default function ApplicationShell(props: any) {
               <IconPizza />
               <Text className={classes.linkLabel}>JCPizzaCo</Text>
             </Group>
-            <Button radius="xl" size="xl" sx={{ height: 30 }}>
+            <Button radius="xl" size="xl" sx={{ height: 30 }} onClick={() => signIn()}>
               Order
             </Button>
             <ColorSchemeToggle />
