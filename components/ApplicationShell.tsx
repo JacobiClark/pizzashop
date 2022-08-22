@@ -149,7 +149,7 @@ export default function ApplicationShell(props: any) {
               <Text className={classes.linkLabel}>JCPizzaCo</Text>
             </Group>
             <Button radius="xl" size="xl" sx={{ height: 30 }} onClick={() => signIn()}>
-              Order
+              Order pizza
             </Button>
             <ColorSchemeToggle />
           </Container>
