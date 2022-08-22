@@ -2,26 +2,65 @@
 import {
   AppShell,
   Navbar,
+  Group,
+  ScrollArea,
   Footer,
-  Aside,
   Text,
-  MediaQuery,
   useMantineTheme,
   createStyles,
   Header,
   Container,
-  Group,
   Button,
   Burger,
   Center,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconChevronDown } from '@tabler/icons';
+import { IconPizza } from '@tabler/icons';
 
 import Lottie from 'react-lottie-player';
+
+import { ColorSchemeToggle } from './ColorSchemeToggle';
+import { LinksGroup } from './NavbarLinksGroup';
+
 import heartJson from '../public/heart.json';
 
 const HEADER_HEIGHT = 60;
+
+const navBarLinks = [
+  { label: 'Dashboard', icon: IconPizza },
+  {
+    label: 'Market news',
+    icon: IconPizza,
+    initiallyOpened: true,
+    links: [
+      { label: 'Overview', link: '/' },
+      { label: 'Forecasts', link: '/' },
+      { label: 'Outlook', link: '/' },
+      { label: 'Real time', link: '/' },
+    ],
+  },
+  {
+    label: 'Releases',
+    icon: IconPizza,
+    links: [
+      { label: 'Upcoming releases', link: '/' },
+      { label: 'Previous releases', link: '/' },
+      { label: 'Releases schedule', link: '/' },
+    ],
+  },
+  { label: 'Analytics', icon: IconPizza },
+  { label: 'Contracts', icon: IconPizza },
+  { label: 'Settings', icon: IconPizza },
+  {
+    label: 'Security',
+    icon: IconPizza,
+    links: [
+      { label: 'Enable 2FA', link: '/' },
+      { label: 'Change password', link: '/' },
+      { label: 'Recovery codes', link: '/' },
+    ],
+  },
+];
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -31,10 +70,19 @@ const useStyles = createStyles((theme) => ({
     alignItems: 'center',
   },
 
+  navbar: {
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
+    paddingBottom: 0,
+  },
+
   links: {
-    [theme.fn.smallerThan('sm')]: {
-      display: 'none',
-    },
+    marginLeft: -theme.spacing.md,
+    marginRight: -theme.spacing.md,
+  },
+
+  linksInner: {
+    paddingTop: theme.spacing.xl,
+    paddingBottom: theme.spacing.xl,
   },
 
   burger: {
@@ -78,6 +126,7 @@ const useStyles = createStyles((theme) => ({
 export default function ApplicationShell(props: any) {
   const theme = useMantineTheme();
   const { classes } = useStyles();
+  const links = navBarLinks.map((item) => <LinksGroup {...item} key={item.label} />);
 
   const [opened, { toggle }] = useDisclosure(false);
 
@@ -92,18 +141,28 @@ export default function ApplicationShell(props: any) {
       asideOffsetBreakpoint="sm"
       navbar={
         <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
-          <Text>Application navbar</Text>
+          <Navbar.Section grow className={classes.links} component={ScrollArea}>
+            <div className={classes.linksInner}>{links}</div>
+          </Navbar.Section>
         </Navbar>
       }
-      aside={
-        <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
-          <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-            <Text>Application sidebar</Text>
-          </Aside>
-        </MediaQuery>
+      header={
+        <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
+          <Container className={classes.inner} fluid>
+            <Group>
+              <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
+              <IconPizza />
+              <Text className={classes.linkLabel}>JCPizzaCo</Text>
+            </Group>
+            <Button radius="xl" size="xl" sx={{ height: 30 }}>
+              Order
+            </Button>
+            <ColorSchemeToggle />
+          </Container>
+        </Header>
       }
       footer={
-        <Footer height={60} p="md">
+        <Footer height={30}>
           <Center>
             <Text className={classes.footerTextLeft}>Made with</Text>
             <Lottie
@@ -116,19 +175,6 @@ export default function ApplicationShell(props: any) {
             <Text className={classes.footerTextRight}>by Jacob Clark</Text>
           </Center>
         </Footer>
-      }
-      header={
-        <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
-          <Container className={classes.inner} fluid>
-            <Group>
-              <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
-              <IconChevronDown />
-            </Group>
-            <Button radius="xl" sx={{ height: 30 }}>
-              Order
-            </Button>
-          </Container>
-        </Header>
       }
     >
       {props.children}
