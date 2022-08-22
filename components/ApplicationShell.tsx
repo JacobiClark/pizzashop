@@ -51,15 +51,7 @@ const navBarLinks = [
   { label: 'Analytics', icon: IconPizza },
   { label: 'Contracts', icon: IconPizza },
   { label: 'Settings', icon: IconPizza },
-  {
-    label: 'Security',
-    icon: IconPizza,
-    links: [
-      { label: 'Enable 2FA', link: '/' },
-      { label: 'Change password', link: '/' },
-      { label: 'Recovery codes', link: '/' },
-    ],
-  },
+  { label: 'Contact', icon: IconPizza },
 ];
 
 const useStyles = createStyles((theme) => ({
