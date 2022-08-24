@@ -15,7 +15,7 @@ import {
   Center,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconPizza } from '@tabler/icons';
+import { IconFlame, IconPizza, IconToolsKitchen2 } from '@tabler/icons';
 
 import { signIn } from 'next-auth/react';
 
@@ -29,10 +29,10 @@ import heartJson from '../public/heart.json';
 const HEADER_HEIGHT = 60;
 
 const navBarLinks = [
-  { label: 'Dashboard', icon: IconPizza },
+  { label: 'Specials', icon: IconFlame },
   {
-    label: 'Market news',
-    icon: IconPizza,
+    label: 'Menu',
+    icon: IconToolsKitchen2,
     initiallyOpened: true,
     links: [
       { label: 'Overview', link: '/' },

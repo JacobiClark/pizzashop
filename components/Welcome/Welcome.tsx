@@ -1,7 +1,11 @@
 import { Title, Text, Anchor } from '@mantine/core';
+import { useSession } from 'next-auth/react';
+
 import useStyles from './Welcome.styles';
 
 export function Welcome() {
+  const { data: session } = useSession();
+
   const { classes } = useStyles();
 
   return (
@@ -19,6 +23,9 @@ export function Welcome() {
           this guide
         </Anchor>
         . To get started edit index.tsx file.
+      </Text>
+      <Text color="dimmed" align="center" size="lg" sx={{ maxWidth: 580 }} mx="auto" mt="xl">
+        {session ? `${JSON.stringify(session)}` : 'logged out'}
       </Text>
     </>
   );
