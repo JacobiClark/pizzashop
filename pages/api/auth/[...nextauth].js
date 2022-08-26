@@ -2,10 +2,6 @@ import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import { FirestoreAdapter } from '@next-auth/firebase-adapter';
 
-import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-import { getAnalytics } from 'firebase/analytics';
-
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -26,7 +22,5 @@ export default NextAuth({
     // ...add more providers here
   ],
   adapter: FirestoreAdapter(firebaseConfig),
+  secret: process.env.NEXTAUTH_SECRET,
 });
-
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-export const app = getApps.length ? getApp() : initializeApp(firebaseConfig);
