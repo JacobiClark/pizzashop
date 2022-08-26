@@ -17,7 +17,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { IconFlame, IconPizza, IconToolsKitchen2 } from '@tabler/icons';
 
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 
 import Lottie from 'react-lottie-player';
 
@@ -121,6 +121,9 @@ const useStyles = createStyles((theme) => ({
 export default function ApplicationShell(props: any) {
   const theme = useMantineTheme();
   const { classes } = useStyles();
+
+  const { data: session } = useSession();
+
   const links = navBarLinks.map((item) => <LinksGroup {...item} key={item.label} />);
 
   const [opened, { toggle }] = useDisclosure(false);
@@ -141,9 +144,12 @@ export default function ApplicationShell(props: any) {
           </Navbar.Section>
           <Navbar.Section>
             <UserButton
-              image="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-              name="Ann Nullpointer"
-              email="anullpointer@yahoo.com"
+              image={
+                session?.user?.image ??
+                'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+              }
+              name={session?.user?.name ?? 'Guest'}
+              email={session?.user?.email ?? 'anullpointer@yahoo.com'}
             />
           </Navbar.Section>
         </Navbar>
