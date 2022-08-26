@@ -1,11 +1,23 @@
 import { Title, Text } from '@mantine/core';
 import { useSession } from 'next-auth/react';
+import useSWR from 'swr';
+import { users } from '../../firebase/clientApp';
+
 import useStyles from './Welcome.styles';
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 export function Welcome() {
+  const { classes } = useStyles();
+
+  const { data, error } = useSWR('/api/user', fetcher);
+
   const { data: session } = useSession();
 
-  const { classes } = useStyles();
+  console.log(users);
+
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
 
   return (
     <>
