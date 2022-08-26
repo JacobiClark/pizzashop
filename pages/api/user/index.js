@@ -1,4 +1,4 @@
-import { db } from '../../../firebase/clientApp';
+import { db } from '../../../firebase/firebaseConfig';
 
 export default async (req, res) => {
   try {
